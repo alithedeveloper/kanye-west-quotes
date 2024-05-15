@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Quotes\Manager as QuoteManager;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton('quote_manager', function ($app) {
+            return new QuoteManager($app);
+        });
     }
 
     /**

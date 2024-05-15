@@ -85,6 +85,8 @@ class QuotesTest extends TestCase
     public function it_will_retrieve_quotes_from_cache_successfully_if_caching_is_enabled(): void
     {
         Config::set('kanye.cache.enabled', true);
+        Config::set('kanye.cache.key', 'kanye-quotes');
+        Config::set('kanye.cache.ttl', 60);
 
         $cached_quotes = [
             ['quote' => 'Cached Test Kanye Quote 1'],
@@ -107,7 +109,9 @@ class QuotesTest extends TestCase
 
         Cache::shouldReceive('remember')
             ->once()
-            ->with('kanye_quotes', 60, \Mockery::type('callable'))
+            ->withArgs(function ($key, $ttl, $callback) {
+                return $key === 'kanye-quotes' && $ttl === 60 && is_callable($callback);
+            })
             ->andReturn($cached_quotes);
 
         $response = $this->get('/api/quotes', [

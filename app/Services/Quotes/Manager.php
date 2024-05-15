@@ -15,7 +15,8 @@ class Manager extends LaravelManager
     public function createKanyeDriver(): KanyeQuoteService|CachedQuoteService
     {
         $service = new KanyeQuoteService();
-        if (!config('kanye.cache.enabled')) {
+
+        if (config('kanye.cache.enabled') === false) {
             return $service;
         }
         return new CachedQuoteService($service);

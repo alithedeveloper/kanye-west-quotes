@@ -14,10 +14,6 @@ class CachedQuoteService implements Quotable
 
     public function getQuotes(): array
     {
-        if (!config('kanye.cache.enabled')) {
-            return $this->service->getQuotes();
-        }
-
         $cache_key = config('kanye.cache.key');
         $cache_time = config('kanye.cache.ttl');
 

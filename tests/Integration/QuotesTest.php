@@ -2,9 +2,11 @@
 
 namespace Tests\Integration;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
+#[group('integration')]
 class QuotesTest extends TestCase
 {
     #[Test]

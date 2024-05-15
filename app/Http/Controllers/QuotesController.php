@@ -14,7 +14,7 @@ class QuotesController extends Controller
 
         $responses = Http::pool(function (Pool $pool) {
             $results = [];
-            for ($i = 0; $i <= 5; $i++) {
+            for ($i = 0; $i < 5; $i++) {
                 $results[] = $pool->get('https://api.kanye.rest');
             }
             return $results;
